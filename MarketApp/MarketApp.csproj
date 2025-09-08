@@ -16,9 +16,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\OrderServices\" />
-    <Folder Include="Services\ProductServices\" />
-  </ItemGroup>
-
 </Project>

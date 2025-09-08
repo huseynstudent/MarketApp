@@ -3,7 +3,7 @@ using MarketApp.Entities;
 
 namespace MarketApp.Services.CategoryServices;
 
-class CategoryService : ICategoryService
+public class CategoryService : ICategoryService
 {
     MarketDbContext _context;
     public void CreateCategory(Category category)
@@ -34,6 +34,14 @@ class CategoryService : ICategoryService
 
     public void UpdateCategory(int id)
     {
-        throw new NotImplementedException();
+        var category = _context.Categories.Find(id);
+        if (category != null)
+        {
+            category.UpdatedDate = DateTime.Now;
+            Console.WriteLine("Enter new name:");
+            string newName = Console.ReadLine();
+            category.Name = newName;
+            _context.Categories.Update(category);
+        }
     }
 }
