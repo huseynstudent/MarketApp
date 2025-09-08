@@ -15,6 +15,7 @@ class CategoryService : ICategoryService
     {
         var category = _context.Categories.Find(id);
         if (category != null)
+
         {
             category.IsDeleted = true;
             category.DeletedDate = DateTime.Now;
