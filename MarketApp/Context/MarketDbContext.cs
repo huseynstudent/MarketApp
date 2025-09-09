@@ -8,7 +8,7 @@ class MarketDbContext : DbContext
 {
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer("Data Source=DESKTOP-5566K3T;Initial Catalog=MarketApp;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;");
+        optionsBuilder.UseSqlServer("Data Source=STHQ0128-08;Initial Catalog=AcademyMarket;User ID=admin;Password=admin;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True");
         base.OnConfiguring(optionsBuilder);
     }
     public DbSet<Product> Products { get; set; }

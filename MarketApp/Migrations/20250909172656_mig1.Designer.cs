@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MarketApp.Migrations
 {
     [DbContext(typeof(MarketDbContext))]
-    [Migration("20250908194452_mig1")]
+    [Migration("20250909172656_mig1")]
     partial class mig1
     {
         /// <inheritdoc />

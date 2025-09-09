@@ -25,7 +25,21 @@ internal class Program
 
         context.SaveChanges();
 
-
+        var products = context.Products.ToList();
+        foreach (var product in products)
+        {
+            Console.WriteLine($"{product.Id} - {product.Name} - {product.Price} - {product.Category?.Name}");
+        }
+        Console.WriteLine("---------------------------------------------------");
+        var category = context.Categories.ToList();
+        foreach (var cat in category)
+        {
+            Console.WriteLine($"{cat.Id} - {cat.Name}");
+            foreach (var prod in cat.Products)
+            {
+                Console.WriteLine($" {prod.Id} - {prod.Name} - {prod.Price}");
+            }
+        }
 
     }
 }
