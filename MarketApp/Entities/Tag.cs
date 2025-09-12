@@ -2,9 +2,9 @@
 
 namespace MarketApp.Entities;
 
-public class Category:BaseEntity
+public class Tag: BaseEntity
 {
-    [MaxLength(100)]
-    public string? Name { get; set; }
+    [MaxLength(50)]
+    public string? Label { get; set; }
     public List<Product>? Products { get; set; } // Navigation Property
 }
