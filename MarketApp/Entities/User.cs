@@ -8,7 +8,6 @@ public class User: BaseEntity
     public string? FirstName { get; set; }
     [MaxLength(100)]
     public string? LastName { get; set; }
-    [EmailAddress]
     public string? Email { get; set; }
     [Required]
     public string? PasswordHash { get; set; }
