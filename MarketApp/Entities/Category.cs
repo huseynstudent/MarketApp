@@ -6,5 +6,5 @@ public class Category:BaseEntity
 {
     [MaxLength(100)]
     public string? Name { get; set; }
-    public List<Product>? Products { get; set; } // Navigation Property
+    public virtual List<Product>? Products { get; set; } // Navigation Property
 }
