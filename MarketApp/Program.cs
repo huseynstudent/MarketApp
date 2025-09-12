@@ -1,10 +1,4 @@
 ﻿using MarketApp.Context;
-using MarketApp.Entities;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.Extensions.Configuration;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Model;
-
 namespace MarketApp;
 //1.Login Registration
 //3.fluent api istifade olunmali
@@ -15,7 +9,6 @@ namespace MarketApp;
 //1.Registration ucun gmaile OTP
 //2.ForgetPassword 
 //3.Paswordler Hashleme ile database yazilib oxunmasi
-
 
 
 internal class Program
