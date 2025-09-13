@@ -2,8 +2,7 @@
 
 namespace MarketApp.Services.UserServices;
 
-interface IUserService
-{
+interface IUserService{
     public void CreateUser(User User);
     public List<User> GetAllUsers();
     public User GetUserById(int id);
