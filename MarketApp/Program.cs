@@ -2,8 +2,6 @@
 using MarketApp.Entities;
 namespace MarketApp;
 //1.Login Registration
-//3.fluent api istifade olunmali
-//4.Configuration classlara cixmalidir 
 //7.Add Delete Update getById GetAll
 //8.Butun kodlama service mentiqleri le yazilmalidir
 
