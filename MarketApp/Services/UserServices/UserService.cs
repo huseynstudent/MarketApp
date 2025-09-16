@@ -9,6 +9,7 @@ public class UserService : IUserService
     public void CreateUser(User User)
     {
         _context.Users.Add(User);
+
     }
 
     public void DeleteUser(int id)
