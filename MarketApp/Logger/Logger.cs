@@ -1,7 +1,8 @@
 ﻿namespace MarketApp.Logger;
 using MarketApp.Context;
 using MarketApp.Entities;
-using MarketApp.Services;
+using MarketApp.Services.UserServices;
+
 public class Logger
 {
     MarketDbContext _context;
@@ -11,7 +12,7 @@ public class Logger
         Console.WriteLine("Enter your mail: (0 to exit)");
         string email = Console.ReadLine();
         if(email=="0") return false;
-        List<User> Users = GetAllUsers();//???
+        List<User> Users = _userService.GetAllUsers();
         foreach (User u in Users)
         {
             if (u.Email == email)
@@ -37,7 +38,7 @@ public class Logger
         string password = Console.ReadLine();
         //hash password
         newUser.PasswordHash = password;
-        userService.CreateUser(newUser);//???
+        _userService.CreateUser(newUser);//???
         _context.SaveChanges();
     }
 }
