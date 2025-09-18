@@ -9,6 +9,7 @@ public class CategoryService : ICategoryService
     public void CreateCategory(Category category)
     {
         _context.Categories.Add(category);
+        _context.SaveChanges();
     }
 
     public void DeleteCategory(int id)
@@ -19,6 +20,7 @@ public class CategoryService : ICategoryService
             category.IsDeleted = true;
             category.DeletedDate = DateTime.Now;
         }
+        _context.SaveChanges();
     }
 
     public List<Category> GetAllCategories()
@@ -42,6 +44,7 @@ public class CategoryService : ICategoryService
             category.Name = newName;
             _context.Categories.Update(category);
         }
+        _context.SaveChanges();
     }
 
 }

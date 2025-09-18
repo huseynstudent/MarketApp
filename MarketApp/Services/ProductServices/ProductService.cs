@@ -9,6 +9,7 @@ public class ProductService: IProductService
     public void CreateProduct(Product Product)
     {
         _context.Products.Add(Product);
+        _context.SaveChanges();
     }
 
     public void DeleteProduct(int id)
@@ -20,6 +21,7 @@ public class ProductService: IProductService
             Product.IsDeleted = true;
             Product.DeletedDate = DateTime.Now;
         }
+        _context.SaveChanges();
     }
 
     public List<Product> GetAllProducts()
@@ -46,5 +48,6 @@ public class ProductService: IProductService
             Product.Price = newPrice;
             _context.Products.Update(Product);
         }
+        _context.SaveChanges();
     }
 }

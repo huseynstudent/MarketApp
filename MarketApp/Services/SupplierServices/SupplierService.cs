@@ -10,6 +10,7 @@ public class SupplierService : ISupplierService
     public void CreateSupplier(Supplier Supplier)
     {
         _context.Suppliers.Add(Supplier);
+        _context.SaveChanges();
     }
 
     public void DeleteSupplier(int id)
@@ -20,6 +21,7 @@ public class SupplierService : ISupplierService
             supplier.IsDeleted = true;
             supplier.DeletedDate = DateTime.Now;
         }
+        _context.SaveChanges();
     }
 
     public List<Supplier> GetAllSuppliers()
@@ -43,5 +45,6 @@ public class SupplierService : ISupplierService
             supplier.Name = newName;
             _context.Suppliers.Update(supplier);
         }
+        _context.SaveChanges();
     }
 }

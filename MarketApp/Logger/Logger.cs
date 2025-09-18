@@ -1,11 +1,9 @@
 ﻿namespace MarketApp.Logger;
-using MarketApp.Context;
 using MarketApp.Entities;
 using MarketApp.Services.UserServices;
 
 public class Logger
 {
-    MarketDbContext _context;
     UserService _userService;
     public bool SignIn()//accept or not
     {
@@ -38,7 +36,6 @@ public class Logger
         string password = Console.ReadLine();
         //hash password
         newUser.PasswordHash = password;
-        _userService.CreateUser(newUser);//???
-        _context.SaveChanges();
+        _userService.CreateUser(newUser);
     }
 }

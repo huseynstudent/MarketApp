@@ -9,7 +9,7 @@ public class UserService : IUserService
     public void CreateUser(User User)
     {
         _context.Users.Add(User);
-
+        _context.SaveChanges();
     }
 
     public void DeleteUser(int id)
@@ -20,6 +20,7 @@ public class UserService : IUserService
             User.IsDeleted = true;
             User.DeletedDate = DateTime.Now;
         }
+        _context.SaveChanges();
     }
 
     public List<User> GetAllUsers()
@@ -49,6 +50,7 @@ public class UserService : IUserService
             User.Email = newEmail;
             _context.Users.Update(User);
         }
+        _context.SaveChanges();
     }
 
 }

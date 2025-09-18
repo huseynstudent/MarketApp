@@ -10,6 +10,7 @@ public class TagService : ITagService
     public void CreateTag(Tag Tag)
     {
         _context.Tags.Add(Tag);
+        _context.SaveChanges();
     }
 
     public void DeleteTag(int id)
@@ -20,6 +21,7 @@ public class TagService : ITagService
             Tag.IsDeleted = true;
             Tag.DeletedDate = DateTime.Now;
         }
+        _context.SaveChanges();
     }
 
     public List<Tag> GetAllTags()
@@ -43,6 +45,7 @@ public class TagService : ITagService
             Tag.Label = newlabel;
             _context.Tags.Update(Tag);
         }
+        _context.SaveChanges();
     }
 
 }

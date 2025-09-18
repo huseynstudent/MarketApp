@@ -10,6 +10,7 @@ public class OrderService: IOrderService
     public void CreateOrder(Order order)
     {
         _context.Orders.Add(order);
+        _context.SaveChanges();
     }
 
     public void DeleteOrder(int id)
@@ -21,6 +22,7 @@ public class OrderService: IOrderService
             Order.IsDeleted = true;
             Order.DeletedDate = DateTime.Now;
         }
+        _context.SaveChanges();
     }
 
     public List<Order> GetAllOrders()
@@ -44,5 +46,6 @@ public class OrderService: IOrderService
             Order.OrderNumber = newOrderNumber;
             _context.Orders.Update(Order);
         }
+        _context.SaveChanges();
     }
 }
