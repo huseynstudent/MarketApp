@@ -5,6 +5,7 @@ using MarketApp.Services;
 public class Logger
 {
     MarketDbContext _context;
+    UserService _userService;
     public bool SignIn()//accept or not
     {
         Console.WriteLine("Enter your mail: (0 to exit)");
