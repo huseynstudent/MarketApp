@@ -1,9 +1,10 @@
-﻿namespace MarketApp.Logger;
+﻿namespace MarketApp.Log;
 
 using ExamProject.Security;
 using MarketApp.Context;
 using MarketApp.Entities;
 using MarketApp.Services.UserServices;
+
 public class Logger
 {
     MarketDbContext _context;
