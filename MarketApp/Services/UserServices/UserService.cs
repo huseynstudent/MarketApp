@@ -1,4 +1,5 @@
-﻿using MarketApp.Context;
+﻿using ExamProject.Security;
+using MarketApp.Context;
 using MarketApp.Entities;
 
 namespace MarketApp.Services.UserServices;
@@ -53,4 +54,66 @@ public class UserService : IUserService
         _context.SaveChanges();
     }
 
+    public void UserMenu()
+    {
+        while (true)
+        {
+            Console.WriteLine("\nUser Menu:");
+            Console.WriteLine("1. Add User");
+            Console.WriteLine("2. Delete User");
+            Console.WriteLine("3. Update User");
+            Console.WriteLine("4. Get User By Id");
+            Console.WriteLine("5. Get All Users");
+            Console.WriteLine("0. Back");
+            Console.Write("Enter your choice: ");
+            int choice = int.Parse(Console.ReadLine());
+
+            switch (choice)
+            {
+                case 1:
+                    User u = new User();
+                    Console.Write("First Name: ");
+                    u.FirstName = Console.ReadLine();
+                    Console.Write("Last Name: ");
+                    u.LastName = Console.ReadLine();
+                    Console.Write("Email: ");
+                    u.Email = Console.ReadLine();
+                    Console.Write("Password (will be stored as hash): ");
+                    string password = Console.ReadLine();
+                    Hasher hasher = new Hasher();
+                    u.PasswordHash = hasher.Hash(password);
+                    u.CreatedDate = DateTime.Now;
+                    CreateUser(u);
+                    Console.WriteLine("User added.");
+                    break;
+                case 2:
+                    Console.Write("Enter User Id to delete: ");
+                    DeleteUser(int.Parse(Console.ReadLine()));
+                    Console.WriteLine("User deleted.");
+                    break;
+                case 3:
+                    Console.Write("Enter User Id to update: ");
+                    UpdateUser(int.Parse(Console.ReadLine()));
+                    Console.WriteLine("User updated.");
+                    break;
+                case 4:
+                    Console.Write("Enter User Id: ");
+                    var user = GetUserById(int.Parse(Console.ReadLine()));
+                    Console.WriteLine(user != null
+                        ? $"Id: {user.Id}, Name: {user.FirstName} {user.LastName}, Email: {user.Email}"
+                        : "Not found.");
+                    break;
+                case 5:
+                    var all = GetAllUsers();
+                    foreach (var item in all)
+                        Console.WriteLine($"Id: {item.Id}, Name: {item.FirstName} {item.LastName}, Email: {item.Email}");
+                    break;
+                case 0:
+                    return;
+                default:
+                    Console.WriteLine("Invalid choice.");
+                    break;
+            }
+        }
+    }
 }

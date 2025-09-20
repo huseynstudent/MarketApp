@@ -1,6 +1,12 @@
 ﻿using MarketApp.Context;
 using MarketApp.Entities;
 using MarketApp.Log;
+using MarketApp.Services.CategoryServices;
+using MarketApp.Services.OrderServices;
+using MarketApp.Services.ProductServices;
+using MarketApp.Services.SupplierServices;
+using MarketApp.Services.TagServices;
+using MarketApp.Services.UserServices;
 namespace MarketApp;
 
 internal class Program
@@ -46,8 +52,30 @@ internal class Program
             choice = int.Parse(Console.ReadLine());
             switch (choice)
             {
-                //
-                //
+                case (1):
+                    ProductService pService = new ProductService();
+                    pService.ProductMenu();
+                    break;
+                case (2):
+                    CategoryService cService = new CategoryService();
+                    cService.CategoryMenu();
+                    break;
+                case (3):
+                    OrderService oService = new OrderService();
+                    oService.OrderMenu();
+                    break;
+                case (4):
+                    TagService tService = new TagService();
+                    tService.TagMenu();
+                    break;
+                case (5):
+                    SupplierService sService = new SupplierService();
+                    sService.SupplierMenu();
+                    break;
+                case (6):
+                    UserService uService = new UserService();
+                    uService.UserMenu();
+                    break;
                 default:
                     Console.WriteLine("Invalid choice. Please try again.");
                     break;

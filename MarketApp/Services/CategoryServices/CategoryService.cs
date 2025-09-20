@@ -47,4 +47,55 @@ public class CategoryService : ICategoryService
         _context.SaveChanges();
     }
 
+    public void CategoryMenu()
+    {
+        while (true)
+        {
+            Console.WriteLine("\nCategory Menu:");
+            Console.WriteLine("1. Add Category");
+            Console.WriteLine("2. Delete Category");
+            Console.WriteLine("3. Update Category");
+            Console.WriteLine("4. Get Category By Id");
+            Console.WriteLine("5. Get All Categories");
+            Console.WriteLine("0. Back");
+            Console.Write("Enter your choice: ");
+            int choice = int.Parse(Console.ReadLine());
+
+            switch (choice)
+            {
+                case 1:
+                    Category c = new Category();
+                    Console.Write("Name: ");
+                    c.Name = Console.ReadLine();
+                    CreateCategory(c);
+                    Console.WriteLine("Category added.");
+                    break;
+                case 2:
+                    Console.Write("Enter Category Id to delete: ");
+                    DeleteCategory(int.Parse(Console.ReadLine()));
+                    Console.WriteLine("Category deleted.");
+                    break;
+                case 3:
+                    Console.Write("Enter Category Id to update: ");
+                    UpdateCategory(int.Parse(Console.ReadLine()));
+                    Console.WriteLine("Category updated.");
+                    break;
+                case 4:
+                    Console.Write("Enter Category Id: ");
+                    var category = GetCategoryById(int.Parse(Console.ReadLine()));
+                    Console.WriteLine(category != null ? $"Id: {category.Id}, Name: {category.Name}" : "Not found.");
+                    break;
+                case 5:
+                    var all = GetAllCategories();
+                    foreach (var item in all)
+                        Console.WriteLine($"Id: {item.Id}, Name: {item.Name}");
+                    break;
+                case 0:
+                    return;
+                default:
+                    Console.WriteLine("Invalid choice.");
+                    break;
+            }
+        }
+    }
 }
