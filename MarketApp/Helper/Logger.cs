@@ -11,9 +11,8 @@ public class Logger
     UserService _uService;
     Hasher _hasher;
      
-    public Logger(MarketDbContext context, UserService uService, Hasher hasher)
+    public Logger(UserService uService, Hasher hasher)
 {
-    _context = context;
     _uService = uService;
     _hasher = hasher;
 }
