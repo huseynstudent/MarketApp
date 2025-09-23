@@ -1,4 +1,5 @@
-﻿using MarketApp.Context;
+﻿using ExamProject.Security;
+using MarketApp.Context;
 using MarketApp.Entities;
 using MarketApp.Log;
 using MarketApp.Services.CategoryServices;
@@ -14,12 +15,16 @@ internal class Program
     static void Main(string[] args)
     {
         MarketDbContext context = new MarketDbContext();
+        UserService userService = new UserService();  
+        Hasher hasher = new Hasher(); 
+
         int choice;
         bool continator = false;
         Console.WriteLine("1. Sign In\n2. Sign Up\n3. Exit");
         choice = int.Parse(Console.ReadLine());
-        Logger log = new Logger();
-        switch(choice)
+        Logger log = new Logger(userService, hasher);
+
+        switch (choice)
         {
             case 1:
                 bool signInResult = log.SignIn();
@@ -53,36 +58,33 @@ internal class Program
             switch (choice)
             {
                 case (1):
-                    ProductService pService = new ProductService();
+                    ProductService pService = new(); // Simplified 'new' expression  
                     pService.ProductMenu();
                     break;
                 case (2):
-                    CategoryService cService = new CategoryService();
+                    CategoryService cService = new(); // Simplified 'new' expression  
                     cService.CategoryMenu();
                     break;
                 case (3):
-                    OrderService oService = new OrderService();
+                    OrderService oService = new(); // Simplified 'new' expression  
                     oService.OrderMenu();
                     break;
                 case (4):
-                    TagService tService = new TagService();
+                    TagService tService = new(); // Simplified 'new' expression  
                     tService.TagMenu();
                     break;
                 case (5):
-                    SupplierService sService = new SupplierService();
+                    SupplierService sService = new(); // Simplified 'new' expression  
                     sService.SupplierMenu();
                     break;
                 case (6):
-                    UserService uService = new UserService();
+                    UserService uService = new(); // Simplified 'new' expression  
                     uService.UserMenu();
                     break;
                 default:
                     Console.WriteLine("Invalid choice. Please try again.");
                     break;
             }
-
-
         }
-
     }
 }
