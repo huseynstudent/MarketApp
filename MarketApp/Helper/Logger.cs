@@ -10,6 +10,13 @@ public class Logger
     MarketDbContext _context;
     UserService _uService;
     Hasher _hasher;
+     
+    public Logger(MarketDbContext context, UserService uService, Hasher hasher)
+{
+    _context = context;
+    _uService = uService;
+    _hasher = hasher;
+}
     public bool SignIn()//accept or not
     {
         Console.WriteLine("Enter your mail: (0 to exit)");
