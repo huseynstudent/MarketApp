@@ -7,6 +7,10 @@ public class SupplierService : ISupplierService
 {
     MarketDbContext _context;
 
+    public SupplierService()
+    {
+        _context = new MarketDbContext();
+    }
     public void CreateSupplier(Supplier Supplier)
     {
         _context.Suppliers.Add(Supplier);

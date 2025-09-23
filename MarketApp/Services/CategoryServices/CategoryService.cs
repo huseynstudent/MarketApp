@@ -6,6 +6,10 @@ namespace MarketApp.Services.CategoryServices;
 public class CategoryService : ICategoryService
 {
     MarketDbContext _context;
+    public CategoryService()
+    {
+        _context = new MarketDbContext();
+    }
     public void CreateCategory(Category category)
     {
         _context.Categories.Add(category);

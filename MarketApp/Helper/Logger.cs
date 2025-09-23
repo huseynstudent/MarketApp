@@ -10,12 +10,13 @@ public class Logger
     MarketDbContext _context;
     UserService _uService;
     Hasher _hasher;
-     
+
     public Logger(UserService uService, Hasher hasher)
-{
-    _uService = uService;
-    _hasher = hasher;
-}
+    {
+        _uService = uService;
+        _hasher = hasher;
+        _context = new MarketDbContext();
+    }
     public bool SignIn()//accept or not
     {
         Console.WriteLine("Enter your mail: (0 to exit)");
@@ -52,6 +53,11 @@ public class Logger
         newUser.Email = Console.ReadLine();
         Console.WriteLine("Enter your password:");
         string password = Console.ReadLine();
+        if (string.IsNullOrWhiteSpace(newUser.Email) || string.IsNullOrWhiteSpace(newUser.PasswordHash))
+        {
+            Console.WriteLine("Email and password are required.");
+            return;
+        }
         string passwordHash = _hasher.Hash(password);
         newUser.PasswordHash = passwordHash;
         _uService.CreateUser(newUser);

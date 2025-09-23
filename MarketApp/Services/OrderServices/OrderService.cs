@@ -7,6 +7,10 @@ namespace MarketApp.Services.OrderServices;
 public class OrderService: IOrderService
 {
     MarketDbContext _context;
+    public OrderService()
+    {
+        _context = new MarketDbContext();
+    }
     public void CreateOrder(Order order)
     {
         _context.Orders.Add(order);

@@ -7,6 +7,11 @@ namespace MarketApp.Services.TagServices;
 public class TagService : ITagService
 {
     MarketDbContext _context;
+
+    public TagService()
+    {
+        _context = new MarketDbContext();
+    }
     public void CreateTag(Tag Tag)
     {
         _context.Tags.Add(Tag);

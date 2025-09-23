@@ -7,6 +7,10 @@ namespace MarketApp.Services.UserServices;
 public class UserService : IUserService
 {
     MarketDbContext _context;
+    public UserService()
+    {
+        _context = new MarketDbContext();
+    }
     public void CreateUser(User User)
     {
         _context.Users.Add(User);

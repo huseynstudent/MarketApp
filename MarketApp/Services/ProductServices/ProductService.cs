@@ -6,6 +6,10 @@ using MarketApp.Entities;
 public class ProductService: IProductService
 {
     MarketDbContext _context;
+    public ProductService()
+    {
+        _context = new MarketDbContext();
+    }
     public void CreateProduct(Product Product)
     {
         _context.Products.Add(Product);

@@ -58,27 +58,27 @@ internal class Program
             switch (choice)
             {
                 case (1):
-                    ProductService pService = new(); // Simplified 'new' expression  
+                    ProductService pService = new();
                     pService.ProductMenu();
                     break;
                 case (2):
-                    CategoryService cService = new(); // Simplified 'new' expression  
+                    CategoryService cService = new(); 
                     cService.CategoryMenu();
                     break;
                 case (3):
-                    OrderService oService = new(); // Simplified 'new' expression  
+                    OrderService oService = new(); 
                     oService.OrderMenu();
                     break;
                 case (4):
-                    TagService tService = new(); // Simplified 'new' expression  
+                    TagService tService = new(); 
                     tService.TagMenu();
                     break;
                 case (5):
-                    SupplierService sService = new(); // Simplified 'new' expression  
+                    SupplierService sService = new(); 
                     sService.SupplierMenu();
                     break;
                 case (6):
-                    UserService uService = new(); // Simplified 'new' expression  
+                    UserService uService = new(); 
                     uService.UserMenu();
                     break;
                 default:
