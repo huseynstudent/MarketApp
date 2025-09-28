@@ -4,7 +4,7 @@ using MarketApp.Services.OrderService;
 
 namespace MarketApp.Services.OrderServices;
 
-public class OrderService: IOrderService
+public class OrderService : IOrderService
 {
     MarketDbContext _context;
     public OrderService()
@@ -19,14 +19,17 @@ public class OrderService: IOrderService
 
     public void DeleteOrder(int id)
     {
-        var Order = _context.Orders.Find(id);
-        if (Order != null)
-
+        var order = _context.Orders.Find(id);
+        if (order == null)
         {
-            Order.IsDeleted = true;
-            Order.DeletedDate = DateTime.Now;
+            Console.WriteLine("Order wasnt found");
+            return;
         }
+        order.IsDeleted = true;
+        order.DeletedDate = DateTime.Now;
+        Console.WriteLine("Order was deleted");
         _context.SaveChanges();
+
     }
 
     public List<Order> GetAllOrders()
@@ -42,14 +45,19 @@ public class OrderService: IOrderService
     public void UpdateOrder(int id)
     {
         var Order = _context.Orders.Find(id);
-        if (Order != null)
+        if (Order == null)
         {
-            Order.UpdatedDate = DateTime.Now;
-            Console.WriteLine("Enter new order number:");
-            string newOrderNumber = Console.ReadLine();
-            Order.OrderNumber = newOrderNumber;
-            _context.Orders.Update(Order);
+            Console.WriteLine("Order wasnt found");
+            return;
         }
+
+        Order.UpdatedDate = DateTime.Now;
+        Console.WriteLine("Enter new order number:");
+        string newOrderNumber = Console.ReadLine();
+        Order.OrderNumber = newOrderNumber;
+        _context.Orders.Update(Order);
+        Console.WriteLine("Order updated.");
+
         _context.SaveChanges();
     }
 
@@ -95,12 +103,10 @@ public class OrderService: IOrderService
                 case 2:
                     Console.Write("Enter Order Id to delete: ");
                     DeleteOrder(int.Parse(Console.ReadLine()));
-                    Console.WriteLine("Order deleted.");
                     break;
                 case 3:
                     Console.Write("Enter Order Id to update: ");
                     UpdateOrder(int.Parse(Console.ReadLine()));
-                    Console.WriteLine("Order updated.");
                     break;
                 case 4:
                     Console.Write("Enter Order Id: ");

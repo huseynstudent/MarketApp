@@ -19,11 +19,14 @@ public class CategoryService : ICategoryService
     public void DeleteCategory(int id)
     {
         var category = _context.Categories.Find(id);
-        if (category != null)
+        if (category == null)
         {
-            category.IsDeleted = true;
-            category.DeletedDate = DateTime.Now;
+            Console.WriteLine("category wasnt found");
+            return;
         }
+        category.IsDeleted = true;
+        category.DeletedDate = DateTime.Now;
+        Console.WriteLine("category was deleted");
         _context.SaveChanges();
     }
 
@@ -40,14 +43,16 @@ public class CategoryService : ICategoryService
     public void UpdateCategory(int id)
     {
         var category = _context.Categories.Find(id);
-        if (category != null)
-        {
-            category.UpdatedDate = DateTime.Now;
-            Console.WriteLine("Enter new name:");
-            string newName = Console.ReadLine();
-            category.Name = newName;
-            _context.Categories.Update(category);
+        if (category == null) { 
+            Console.WriteLine("Category wasn't found");
+            return;
         }
+        category.UpdatedDate = DateTime.Now;
+        Console.WriteLine("Enter new name:");
+        string newName = Console.ReadLine();
+        category.Name = newName;
+        _context.Categories.Update(category);
+        Console.WriteLine("Category updated.");
         _context.SaveChanges();
     }
 
@@ -77,12 +82,10 @@ public class CategoryService : ICategoryService
                 case 2:
                     Console.Write("Enter Category Id to delete: ");
                     DeleteCategory(int.Parse(Console.ReadLine()));
-                    Console.WriteLine("Category deleted.");
                     break;
                 case 3:
                     Console.Write("Enter Category Id to update: ");
                     UpdateCategory(int.Parse(Console.ReadLine()));
-                    Console.WriteLine("Category updated.");
                     break;
                 case 4:
                     Console.Write("Enter Category Id: ");

@@ -19,12 +19,16 @@ public class SupplierService : ISupplierService
 
     public void DeleteSupplier(int id)
     {   
+        
         var supplier = _context.Suppliers.Find(id);
-        if (supplier != null)
+        if (supplier == null)
         {
-            supplier.IsDeleted = true;
-            supplier.DeletedDate = DateTime.Now;
+            Console.WriteLine("Supplier wasnt found");
+            return;
         }
+        supplier.IsDeleted = true;
+        supplier.DeletedDate = DateTime.Now;
+        Console.WriteLine("Supplier was deleted");
         _context.SaveChanges();
     }
 
@@ -41,14 +45,19 @@ public class SupplierService : ISupplierService
     public void UpdateSupplier(int id)
     {
         var supplier = _context.Suppliers.Find(id);
-        if (supplier != null)
+        if (supplier == null)
         {
+            Console.WriteLine("Supplier wasnt found"); 
+            return;
+        }
+        
             supplier.UpdatedDate = DateTime.Now;
             Console.WriteLine("Enter new name:");
             string newName = Console.ReadLine();
             supplier.Name = newName;
             _context.Suppliers.Update(supplier);
-        }
+                    Console.WriteLine("Supplier updated.");
+        
         _context.SaveChanges();
     }
 
@@ -78,12 +87,10 @@ public class SupplierService : ISupplierService
                 case 2:
                     Console.Write("Enter Supplier Id to delete: ");
                     DeleteSupplier(int.Parse(Console.ReadLine()));
-                    Console.WriteLine("Supplier deleted.");
                     break;
                 case 3:
                     Console.Write("Enter Supplier Id to update: ");
                     UpdateSupplier(int.Parse(Console.ReadLine()));
-                    Console.WriteLine("Supplier updated.");
                     break;
                 case 4:
                     Console.Write("Enter Supplier Id: ");

@@ -19,12 +19,16 @@ public class UserService : IUserService
 
     public void DeleteUser(int id)
     {
-        var User = _context.Users.Find(id);
-        if (User != null)
+
+        var user = _context.Users.Find(id);
+        if (user == null)
         {
-            User.IsDeleted = true;
-            User.DeletedDate = DateTime.Now;
+            Console.WriteLine("User wasnt found");
+            return;
         }
+        user.IsDeleted = true;
+        user.DeletedDate = DateTime.Now;
+        Console.WriteLine("User was deleted");
         _context.SaveChanges();
     }
 
@@ -41,20 +45,24 @@ public class UserService : IUserService
     public void UpdateUser(int id)
     {
         var User = _context.Users.Find(id);
-        if (User != null)
+        if (User == null)
         {
-            User.UpdatedDate = DateTime.Now;
-            Console.WriteLine("Enter new first name:");
-            string newName = Console.ReadLine();
-            User.FirstName = newName;
-            Console.WriteLine("Enter new last name:");
-            string newLastName = Console.ReadLine();
-            User.LastName = newLastName;
-            Console.WriteLine("Enter new email:");
-            string newEmail = Console.ReadLine();
-            User.Email = newEmail;
-            _context.Users.Update(User);
+            Console.WriteLine("User wasnt found");
+            return;
         }
+        User.UpdatedDate = DateTime.Now;
+        Console.WriteLine("Enter new first name:");
+        string newName = Console.ReadLine();
+        User.FirstName = newName;
+        Console.WriteLine("Enter new last name:");
+        string newLastName = Console.ReadLine();
+        User.LastName = newLastName;
+        Console.WriteLine("Enter new email:");
+        string newEmail = Console.ReadLine();
+        User.Email = newEmail;
+        _context.Users.Update(User);
+                    Console.WriteLine("User updated.");
+
         _context.SaveChanges();
     }
 
@@ -93,12 +101,11 @@ public class UserService : IUserService
                 case 2:
                     Console.Write("Enter User Id to delete: ");
                     DeleteUser(int.Parse(Console.ReadLine()));
-                    Console.WriteLine("User deleted.");
+
                     break;
                 case 3:
                     Console.Write("Enter User Id to update: ");
                     UpdateUser(int.Parse(Console.ReadLine()));
-                    Console.WriteLine("User updated.");
                     break;
                 case 4:
                     Console.Write("Enter User Id: ");

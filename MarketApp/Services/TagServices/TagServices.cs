@@ -20,12 +20,16 @@ public class TagService : ITagService
 
     public void DeleteTag(int id)
     {
+
         var Tag = _context.Tags.Find(id);
-        if (Tag != null)
+        if (Tag == null)
         {
-            Tag.IsDeleted = true;
-            Tag.DeletedDate = DateTime.Now;
+            Console.WriteLine("Tag wasnt found");
+            return;
         }
+        Tag.IsDeleted = true;
+        Tag.DeletedDate = DateTime.Now;
+        Console.WriteLine("Tag was deleted");
         _context.SaveChanges();
     }
 
@@ -42,14 +46,19 @@ public class TagService : ITagService
     public void UpdateTag(int id)
     {
         var Tag = _context.Tags.Find(id);
-        if (Tag != null)
+        if (Tag == null)
         {
-            Tag.UpdatedDate = DateTime.Now;
-            Console.WriteLine("Enter new label:");
-            string newlabel = Console.ReadLine();
-            Tag.Label = newlabel;
-            _context.Tags.Update(Tag);
+            Console.WriteLine("Tag wasnt found");
+            return;
         }
+
+        Tag.UpdatedDate = DateTime.Now;
+        Console.WriteLine("Enter new label:");
+        string newlabel = Console.ReadLine();
+        Tag.Label = newlabel;
+        _context.Tags.Update(Tag);
+
+        Console.WriteLine("Tag updated.");
         _context.SaveChanges();
     }
     public void TagMenu()
@@ -78,12 +87,11 @@ public class TagService : ITagService
                 case 2:
                     Console.Write("Enter Tag Id to delete: ");
                     DeleteTag(int.Parse(Console.ReadLine()));
-                    Console.WriteLine("Tag deleted.");
+
                     break;
                 case 3:
                     Console.Write("Enter Tag Id to update: ");
                     UpdateTag(int.Parse(Console.ReadLine()));
-                    Console.WriteLine("Tag updated.");
                     break;
                 case 4:
                     Console.Write("Enter Tag Id: ");

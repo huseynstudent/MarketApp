@@ -3,7 +3,7 @@
 using MarketApp.Context;
 using MarketApp.Entities;
 
-public class ProductService: IProductService
+public class ProductService : IProductService
 {
     MarketDbContext _context;
     public ProductService()
@@ -19,12 +19,14 @@ public class ProductService: IProductService
     public void DeleteProduct(int id)
     {
         var Product = _context.Products.Find(id);
-        if (Product != null)
-
+        if (Product == null)
         {
-            Product.IsDeleted = true;
-            Product.DeletedDate = DateTime.Now;
+            Console.WriteLine("product wasnt found");
+            return;
         }
+        Product.IsDeleted = true;
+        Product.DeletedDate = DateTime.Now;
+        Console.WriteLine("product was deleted");
         _context.SaveChanges();
     }
 
@@ -41,17 +43,21 @@ public class ProductService: IProductService
     public void UpdateProduct(int id)
     {
         var Product = _context.Products.Find(id);
-        if (Product != null)
+        if (Product == null)
         {
-            Product.UpdatedDate = DateTime.Now;
-            Console.WriteLine("Enter new name:");
-            string newName = Console.ReadLine();
-            Product.Name = newName;
-            Console.WriteLine("Enter new price:");
-            float newPrice = float.Parse(Console.ReadLine());
-            Product.Price = newPrice;
-            _context.Products.Update(Product);
+            Console.WriteLine("Product wasnt found");
+            return;
         }
+        Product.UpdatedDate = DateTime.Now;
+        Console.WriteLine("Enter new name:");
+        string newName = Console.ReadLine();
+        Product.Name = newName;
+        Console.WriteLine("Enter new price:");
+        float newPrice = float.Parse(Console.ReadLine());
+        Product.Price = newPrice;
+        _context.Products.Update(Product);
+        Console.WriteLine("Product updated.");
+
         _context.SaveChanges();
     }
 
@@ -91,7 +97,7 @@ public class ProductService: IProductService
                     {
                         Console.WriteLine($"Id: {supplier.Id}, Name: {supplier.Name}");
                     }
-                    int supplierId=0;
+                    int supplierId = 0;
                     while (!int.TryParse(Console.ReadLine(), out supplierId) || !suppliers.Any(s => s.Id == supplierId))
                     {
                         Console.WriteLine("Invalid Supplier Id. Please select a valid one.");
@@ -117,6 +123,7 @@ public class ProductService: IProductService
                         Console.WriteLine("Invalid order Id. Please select a valid one.");
                     }
 
+                    p.OrderId = orderId;
                     var Categories = _context.Categories.ToList();
                     if (Categories.Count == 0)
                     {
@@ -135,34 +142,34 @@ public class ProductService: IProductService
                     {
                         Console.WriteLine("Invalid Categorie Id. Please select a valid one.");
                     }
-
-                    var tags = _context.Tags.ToList();
-                    if (tags.Count > 0)
-                    {
-                        Console.WriteLine("Select Tag Ids (comma separated, or leave empty for none):");
-                        foreach (var tag in tags)
-                        {
-                            Console.WriteLine($"Id: {tag.Id}, Label: {tag.Label}");
-                        }
-                        string tagInput = Console.ReadLine();
-                        if (!string.IsNullOrWhiteSpace(tagInput))
-                        {
-                            var tagIds = tagInput.Split(',')
-                                .Select(t => int.TryParse(t.Trim(), out int id) ? id : (int?)null)
-                                .Where(id => id.HasValue && tags.Any(tag => tag.Id == id.Value))
-                                .Select(id => id.Value)
-                                .ToList();
-                            p.Tags = tags.Where(tag => tagIds.Contains(tag.Id)).ToList();
-                        }
-                        else
-                        {
-                            p.Tags = new List<Tag>();
-                        }
-                    }
-                    else
-                    {
-                        p.Tags = new List<Tag>();
-                    }
+                    p.CategoryId = CategorieId;
+                    //var tags = _context.Tags.ToList();
+                    //if (tags.Count > 0)
+                    //{
+                    //    Console.WriteLine("Select Tag Ids (comma separated, or leave empty for none):");
+                    //    foreach (var tag in tags)
+                    //    {
+                    //        Console.WriteLine($"Id: {tag.Id}, Label: {tag.Label}");
+                    //    }
+                    //    string tagInput = Console.ReadLine();
+                    //    if (!string.IsNullOrWhiteSpace(tagInput))
+                    //    {
+                    //        var tagIds = tagInput.Split(',')
+                    //            .Select(t => int.TryParse(t.Trim(), out int id) ? id : (int?)null)
+                    //            .Where(id => id.HasValue && tags.Any(tag => tag.Id == id.Value))
+                    //            .Select(id => id.Value)
+                    //            .ToList();
+                    //        p.Tags = tags.Where(tag => tagIds.Contains(tag.Id)).ToList();
+                    //    }
+                    //    else
+                    //    {
+                    //        p.Tags = new List<Tag>();
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    p.Tags = new List<Tag>();
+                    //}
 
                     CreateProduct(p);
                     Console.WriteLine("Product added.");
@@ -170,14 +177,24 @@ public class ProductService: IProductService
 
 
                 case 2:
+                    var products = _context.Products
+                        .ToList();
+                    if (products.Count == 0)
+                    {
+                        Console.WriteLine("No products found.");
+                        break;
+                    }
+                    foreach (var product in products)
+                    {
+                        Console.WriteLine($"Id: {product.Id}, Name: {product.Name}");
+                    }
+
                     Console.Write("Enter Product Id to delete: ");
                     DeleteProduct(int.Parse(Console.ReadLine()));
-                    Console.WriteLine("Product deleted.");
                     break;
                 case 3:
                     Console.Write("Enter Product Id to update: ");
                     UpdateProduct(int.Parse(Console.ReadLine()));
-                    Console.WriteLine("Product updated.");
                     break;
                 case 4:
                     Console.Write("Enter Product Id: ");

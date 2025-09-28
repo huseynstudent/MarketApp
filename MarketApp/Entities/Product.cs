@@ -21,7 +21,7 @@ namespace MarketApp.Entities
         public List<Tag>? Tags { get; set; } // Navigation Property
 
         [ForeignKey("Supplier")]
-        public int SupplierId { get; set; } // Foreign Key
+        public int? SupplierId { get; set; } // Foreign Key
         public Supplier? Supplier { get; set; } // Navigation Property
     }
 }
