@@ -77,9 +77,98 @@ public class ProductService: IProductService
                     p.Name = Console.ReadLine();
                     Console.Write("Price: ");
                     p.Price = float.Parse(Console.ReadLine());
+
+                    var suppliers = _context.Suppliers.ToList();
+                    if (suppliers.Count == 0)
+                    {
+                        Console.WriteLine("No suppliers found. returning null");
+                        p.Supplier = null;
+                        p.SupplierId = 0;
+                        break;
+                    }
+                    Console.WriteLine("Select Supplier Id:");
+                    foreach (var supplier in suppliers)
+                    {
+                        Console.WriteLine($"Id: {supplier.Id}, Name: {supplier.Name}");
+                    }
+                    int supplierId=0;
+                    while (!int.TryParse(Console.ReadLine(), out supplierId) || !suppliers.Any(s => s.Id == supplierId))
+                    {
+                        Console.WriteLine("Invalid Supplier Id. Please select a valid one.");
+                    }
+                    p.SupplierId = supplierId;
+
+                    var orders = _context.Orders.ToList();
+                    if (orders.Count == 0)
+                    {
+                        Console.WriteLine("No orders found. returning null");
+                        p.Order = null;
+                        p.OrderId = 0;
+                        break;
+                    }
+                    Console.WriteLine("Select order Id:");
+                    foreach (var order in orders)
+                    {
+                        Console.WriteLine($"Id: {order.Id}, Name: {order.OrderNumber}");
+                    }
+                    int orderId = 0;
+                    while (!int.TryParse(Console.ReadLine(), out orderId) || !orders.Any(s => s.Id == orderId))
+                    {
+                        Console.WriteLine("Invalid order Id. Please select a valid one.");
+                    }
+
+                    var Categories = _context.Categories.ToList();
+                    if (Categories.Count == 0)
+                    {
+                        Console.WriteLine("No Categories found. returning null");
+                        p.Category = null;
+                        p.CategoryId = 0;
+                        break;
+                    }
+                    Console.WriteLine("Select Categorie Id:");
+                    foreach (var Categorie in Categories)
+                    {
+                        Console.WriteLine($"Id: {Categorie.Id}, Name: {Categorie.Name}");
+                    }
+                    int CategorieId = 0;
+                    while (!int.TryParse(Console.ReadLine(), out CategorieId) || !Categories.Any(s => s.Id == CategorieId))
+                    {
+                        Console.WriteLine("Invalid Categorie Id. Please select a valid one.");
+                    }
+
+                    var tags = _context.Tags.ToList();
+                    if (tags.Count > 0)
+                    {
+                        Console.WriteLine("Select Tag Ids (comma separated, or leave empty for none):");
+                        foreach (var tag in tags)
+                        {
+                            Console.WriteLine($"Id: {tag.Id}, Label: {tag.Label}");
+                        }
+                        string tagInput = Console.ReadLine();
+                        if (!string.IsNullOrWhiteSpace(tagInput))
+                        {
+                            var tagIds = tagInput.Split(',')
+                                .Select(t => int.TryParse(t.Trim(), out int id) ? id : (int?)null)
+                                .Where(id => id.HasValue && tags.Any(tag => tag.Id == id.Value))
+                                .Select(id => id.Value)
+                                .ToList();
+                            p.Tags = tags.Where(tag => tagIds.Contains(tag.Id)).ToList();
+                        }
+                        else
+                        {
+                            p.Tags = new List<Tag>();
+                        }
+                    }
+                    else
+                    {
+                        p.Tags = new List<Tag>();
+                    }
+
                     CreateProduct(p);
                     Console.WriteLine("Product added.");
                     break;
+
+
                 case 2:
                     Console.Write("Enter Product Id to delete: ");
                     DeleteProduct(int.Parse(Console.ReadLine()));

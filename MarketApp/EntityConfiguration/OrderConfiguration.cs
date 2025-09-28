@@ -13,16 +13,10 @@ namespace MarketApp.EntityConfiguration
             builder.Property(o => o.OrderNumber).IsRequired().HasMaxLength(15);
 
             builder.HasMany(o => o.Products)
-                   .WithMany(p => p.Orders)
-                   .UsingEntity<Dictionary<string, object>>(
-                       "OrderProduct",
-                       j => j.HasOne<Product>().WithMany().HasForeignKey("ProductId").OnDelete(DeleteBehavior.Cascade),
-                       j => j.HasOne<Order>().WithMany().HasForeignKey("OrderId").OnDelete(DeleteBehavior.Cascade),
-                       j =>
-                       {
-                           j.HasKey("OrderId", "ProductId");
-                           j.ToTable("OrderProducts");
-                       });
+                   .WithOne(p => p.Order)
+                     .HasForeignKey(p => p.OrderId)
+                        .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }

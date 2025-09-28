@@ -14,8 +14,9 @@ namespace MarketApp.Entities
         [ForeignKey("Category")]
         public int? CategoryId { get; set; } // Foreign Key
         public Category? Category { get; set; } // Navigation Property
-
-        public List<Order>? Orders { get; set; } // Navigation Property
+        [ForeignKey("Order")]
+        public int? OrderId { get; set; }
+        public Order? Order { get; set; } // Navigation Property
 
         public List<Tag>? Tags { get; set; } // Navigation Property
 

@@ -15,8 +15,8 @@ internal class Program
     static void Main(string[] args)
     {
         MarketDbContext context = new MarketDbContext();
-        UserService userService = new UserService();  
-        Hasher hasher = new Hasher(); 
+        UserService userService = new UserService();
+        Hasher hasher = new Hasher();
 
         int choice;
         bool continator = false;
@@ -53,37 +53,43 @@ internal class Program
         if (continator)
         {
             Console.WriteLine("Welcome to the Market Application!");
-            Console.WriteLine("\vManage:\n\t1) products \n\t2)categories \n\t3)orders \n\t4)tags \n\t5)suppliers \n\t6) users");
-            choice = int.Parse(Console.ReadLine());
-            switch (choice)
+            while (true)
             {
-                case (1):
-                    ProductService pService = new();
-                    pService.ProductMenu();
-                    break;
-                case (2):
-                    CategoryService cService = new(); 
-                    cService.CategoryMenu();
-                    break;
-                case (3):
-                    OrderService oService = new(); 
-                    oService.OrderMenu();
-                    break;
-                case (4):
-                    TagService tService = new(); 
-                    tService.TagMenu();
-                    break;
-                case (5):
-                    SupplierService sService = new(); 
-                    sService.SupplierMenu();
-                    break;
-                case (6):
-                    UserService uService = new(); 
-                    uService.UserMenu();
-                    break;
-                default:
-                    Console.WriteLine("Invalid choice. Please try again.");
-                    break;
+                Console.WriteLine("\v\vManage:\n\t1) products \n\t2)categories \n\t3)orders \n\t4)tags \n\t5)suppliers \n\t6) users\n0 to exit\n\n");
+                choice = int.Parse(Console.ReadLine());
+                switch (choice)
+                {
+                    case (1):
+                        ProductService pService = new();
+                        pService.ProductMenu();
+                        break;
+                    case (2):
+                        CategoryService cService = new();
+                        cService.CategoryMenu();
+                        break;
+                    case (3):
+                        OrderService oService = new();
+                        oService.OrderMenu();
+                        break;
+                    case (4):
+                        TagService tService = new();
+                        tService.TagMenu();
+                        break;
+                    case (5):
+                        SupplierService sService = new();
+                        sService.SupplierMenu();
+                        break;
+                    case (6):
+                        UserService uService = new();
+                        uService.UserMenu();
+                        break;
+                    case (0):
+                        Console.WriteLine("Exiting the application.");
+                        return;
+                    default:
+                        Console.WriteLine("Invalid choice. Please try again.");
+                        break;
+                }
             }
         }
     }

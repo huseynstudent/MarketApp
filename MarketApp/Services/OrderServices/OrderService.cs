@@ -73,8 +73,21 @@ public class OrderService: IOrderService
                     Order o = new Order();
                     Console.Write("Order Number: ");
                     o.OrderNumber = Console.ReadLine();
+                    var users = _context.Users.ToList();
+                    Console.WriteLine("Available Users:");
+                    foreach (var u in users)
+                    {
+                        Console.WriteLine($"{u.Id}: {u.FirstName}");
+                    }
+                    int userId = int.Parse(Console.ReadLine());
                     Console.Write("User Id: ");
-                    o.UserId = int.Parse(Console.ReadLine());
+                    var user = _context.Users.Find(userId);
+                    if (user == null)
+                    {
+                        Console.WriteLine("❌ Invalid User Id. Order not created.");
+                        break;
+                    }
+                    o.UserId = userId;
                     o.CreatedDate = DateTime.Now;
                     CreateOrder(o);
                     Console.WriteLine("Order added.");

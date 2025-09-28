@@ -53,13 +53,13 @@ public class Logger
         newUser.Email = Console.ReadLine();
         Console.WriteLine("Enter your password:");
         string password = Console.ReadLine();
+        string passwordHash = _hasher.Hash(password);
+        newUser.PasswordHash = passwordHash;
         if (string.IsNullOrWhiteSpace(newUser.Email) || string.IsNullOrWhiteSpace(newUser.PasswordHash))
         {
             Console.WriteLine("Email and password are required.");
             return;
         }
-        string passwordHash = _hasher.Hash(password);
-        newUser.PasswordHash = passwordHash;
         _uService.CreateUser(newUser);
         _context.SaveChanges();
     }
